@@ -22,15 +22,19 @@
 
   <meta name="description" content="Docker概念">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker_01 基礎概念">
+<meta property="og:title" content="Docker_01 基礎概念">
 <meta property="og:url" content="https://eddie813022.github.io/2021/04/28/docker01/index.html">
 <meta property="og:site_name" content="愛迪筆記本">
 <meta property="og:description" content="Docker概念">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://eddie813022.github.io/2021/04/28/docker01/pasted-4.png">
+<meta property="og:image" content="https://eddie813022.github.io/2021/04/28/docker01/virtualmachine.png">
+<meta property="og:image" content="https://eddie813022.github.io/2021/04/28/docker01/container.png">
 <meta property="article:published_time" content="2021-04-28T09:07:00.000Z">
-<meta property="article:modified_time" content="2021-04-28T17:11:22.000Z">
+<meta property="article:modified_time" content="2021-04-29T09:14:36.000Z">
 <meta property="article:author" content="Eddie Chang">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://eddie813022.github.io/2021/04/28/docker01/pasted-4.png">
 
 <link rel="canonical" href="https://eddie813022.github.io/2021/04/28/docker01/">
 
@@ -45,7 +49,7 @@
   };
 </script>
 
-  <title>docker_01 基礎概念 | 愛迪筆記本</title>
+  <title>Docker_01 基礎概念 | 愛迪筆記本</title>
   
 
 
@@ -173,7 +177,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          docker_01 基礎概念
+          Docker_01 基礎概念
         </h1>
 
         <div class="post-meta">
@@ -190,7 +194,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2021-04-29 01:11:22" itemprop="dateModified" datetime="2021-04-29T01:11:22+08:00">2021-04-29</time>
+                <time title="修改時間：2021-04-29 17:14:36" itemprop="dateModified" datetime="2021-04-29T17:14:36+08:00">2021-04-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -216,13 +220,26 @@
         <h3 id="Docker概念"><a href="#Docker概念" class="headerlink" title="Docker概念"></a>Docker概念</h3><span id="more"></span>
 
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/">Docker官方文檔</a></p>
+<p>Docker架構圖</p>
+<p><img src="/2021/04/28/docker01/pasted-4.png"></p>
+<p>傳統虛擬機內部</p>
+<p><img src="/2021/04/28/docker01/virtualmachine.png"></p>
+<p>Docker內部</p>
+<p><img src="/2021/04/28/docker01/container.png"></p>
 <p>Docker 是一項解決環境的容器技術，基於Go語言開發</p>
+<p>相比傳統虛擬化技術以作業系統為中心，Docker則是以應用程式為中心的虛擬化技術，</p>
+<p>透過直接在内核系統層打造虛擬執行環境共用同一個Host OS，取代了個別建置OS的作法</p>
+<p>為了與傳統虛擬機區隔開來，我們稱之為<code>Container</code>。</p>
+<p>Docker使用aufs檔案系統設計層層堆疊的Container Image，</p>
+<p>將Container內的所有程式(應用程式、函式庫、設定檔)都包進Image中，</p>
+<p>並透過<code>Docker File</code>來記錄建立Contrainer的步驟與參數，</p>
+<p>後續需要建立Container時只要透過Docker File就能在任意支援Docker的環境中部屬。</p>
 <p>充分解決了”我的電腦可以運作，為甚麼你的不行?”這種問題的發生</p>
 <h3 id="Docker優點"><a href="#Docker優點" class="headerlink" title="Docker優點"></a>Docker優點</h3><p>Docker也是一種內核虛擬化技術</p>
 <ul>
 <li>容器之間互相隔離</li>
 <li>占用容量更小</li>
-<li>完全免費</li>
+<li>開源技術</li>
 <li>文檔齊全</li>
 <li>啟動速度更快</li>
 <li>開發及運維一條路</li>
@@ -232,11 +249,11 @@
 <li>容器(Container)</li>
 <li>倉庫(Repository)</li>
 </ol>
-<p><strong>鏡像(Image)</strong></p>
+<p><code>鏡像(Image)</code></p>
 <p>就像是Python中的類或是模板，提供容器運行單個或多個服務</p>
-<p><strong>容器(Containter)</strong></p>
+<p><code>容器(Containter)</code></p>
 <p>容器之間互相隔離，基本上就像是在對虛擬機開關機一樣，容器也能做到開啟與關閉</p>
-<p><strong>倉庫(Repository)</strong></p>
+<p><code>倉庫(Repository)</code></p>
 <p>存放鏡像的地方:Dockerhub，一樣有分成Public與Private，<br>基於git的命令，一樣可以提供使用者上傳及下載</p>
 <h3 id="Docker安裝"><a href="#Docker安裝" class="headerlink" title="Docker安裝"></a>Docker安裝</h3><ul>
 <li>Windows <a target="_blank" rel="noopener" href="https://docs.docker.com/get-docker/">-&gt;Download</a></li>
@@ -262,8 +279,8 @@
       <i class="fa fa-chevron-left"></i> Hexo_01 安裝及配置
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/04/28/docker02/" rel="next" title="docker_02 Docker Desktop On Windows安裝及設定">
-      docker_02 Docker Desktop On Windows安裝及設定 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/04/28/docker02/" rel="next" title="Docker_02 Docker Desktop On Windows安裝及設定">
+      Docker_02 Docker Desktop On Windows安裝及設定 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
