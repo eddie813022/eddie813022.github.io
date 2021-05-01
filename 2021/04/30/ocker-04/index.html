@@ -22,13 +22,13 @@
 
   <meta name="description" content="Docker實際要怎麼使用基本實務用途，範例介紹">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker_04 基本指令">
+<meta property="og:title" content="docker_04 常用指令">
 <meta property="og:url" content="https://eddie813022.github.io/2021/04/30/ocker-04/index.html">
 <meta property="og:site_name" content="迎接禮拜一">
 <meta property="og:description" content="Docker實際要怎麼使用基本實務用途，範例介紹">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-04-30T06:12:00.000Z">
-<meta property="article:modified_time" content="2021-04-30T09:01:30.000Z">
+<meta property="article:modified_time" content="2021-05-01T20:16:52.000Z">
 <meta property="article:author" content="Eddie Chang">
 <meta name="twitter:card" content="summary">
 
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>docker_04 基本指令 | 迎接禮拜一</title>
+  <title>docker_04 常用指令 | 迎接禮拜一</title>
   
 
 
@@ -172,7 +172,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          docker_04 基本指令
+          docker_04 常用指令
         </h1>
 
         <div class="post-meta">
@@ -181,10 +181,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">發表於</span>
-              
 
-              <time title="創建時間：2021-04-30 14:12:00 / 修改時間：17:01:30" itemprop="dateCreated datePublished" datetime="2021-04-30T14:12:00+08:00">2021-04-30</time>
+              <time title="創建時間：2021-04-30 14:12:00" itemprop="dateCreated datePublished" datetime="2021-04-30T14:12:00+08:00">2021-04-30</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-05-02 04:16:52" itemprop="dateModified" datetime="2021-05-02T04:16:52+08:00">2021-05-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -201,7 +207,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>1.1k</span>
+              <span>1.3k</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
@@ -225,7 +231,7 @@
 
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/reference/">官方指令文檔</a></p>
 <p><a target="_blank" rel="noopener" href="https://hub.docker.com/">DockerHub</a></p>
-<h3 id="Docker-幫助指令"><a href="#Docker-幫助指令" class="headerlink" title="Docker 幫助指令"></a>Docker 幫助指令</h3><p>版本訊息</p>
+<h3 id="Docker-Engine指令"><a href="#Docker-Engine指令" class="headerlink" title="Docker Engine指令"></a>Docker Engine指令</h3><p>版本訊息</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker version</span><br></pre></td></tr></table></figure>
 
 <p>系統詳細訊息</p>
@@ -275,7 +281,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop &lt;Container ID&gt;</span><br></pre></td></tr></table></figure>
 
 <p>進入正在運行的容器</p>
+<p>方式1 <code>exec</code> 在容器中開啟一個交互指令視窗</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it &lt;Container ID&gt; &#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
+
+<p>方式2 <code>attach</code> 進入容器正在執行的腳本視窗</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker attach &lt;Container ID&gt;</span><br></pre></td></tr></table></figure>
 
 <p>重啟容器</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart &lt;Container ID&gt;</span><br></pre></td></tr></table></figure>
@@ -286,13 +296,17 @@
 <p>刪除全部容器(強制)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docke rm -f $(docker ps -aq)</span><br></pre></td></tr></table></figure>
 
+<p>複製容器檔案到主機上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp &lt;Container ID&gt;:&lt;路徑&#x2F;檔案名稱.副檔名&gt; &lt;本機位置&gt;</span><br></pre></td></tr></table></figure>
+
+<p>範例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp &lt;81b64f516ce3&gt;:&#x2F;home&#x2F;test.txt D:\</span><br></pre></td></tr></table></figure>
+
 <h3 id="Docker-Log指令"><a href="#Docker-Log指令" class="headerlink" title="Docker Log指令"></a>Docker Log指令</h3><p>查詢日誌</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker logs[para] &lt;Container ID&gt;</span><br><span class="line">para:</span><br><span class="line">-t           # 顯示時間軸</span><br><span class="line">-f           # 顯示輸出</span><br><span class="line">--tail &lt;int&gt; # 顯示特定筆數</span><br></pre></td></tr></table></figure>
 
 <p>範例:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -tf --tail 5 5f1dc5556d60</span><br></pre></td></tr></table></figure>
-
-
     </div>
 
     
@@ -369,7 +383,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker%E5%AF%A6%E9%9A%9B%E8%A6%81%E6%80%8E%E9%BA%BC%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">Docker實際要怎麼使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-%E5%B9%AB%E5%8A%A9%E6%8C%87%E4%BB%A4"><span class="nav-number">1.0.1.</span> <span class="nav-text">Docker 幫助指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-Image%E6%8C%87%E4%BB%A4"><span class="nav-number">1.0.2.</span> <span class="nav-text">Docker Image指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-Container%E6%8C%87%E4%BB%A4"><span class="nav-number">1.0.3.</span> <span class="nav-text">Docker Container指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-Log%E6%8C%87%E4%BB%A4"><span class="nav-number">1.0.4.</span> <span class="nav-text">Docker Log指令</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker%E5%AF%A6%E9%9A%9B%E8%A6%81%E6%80%8E%E9%BA%BC%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">Docker實際要怎麼使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-Engine%E6%8C%87%E4%BB%A4"><span class="nav-number">1.0.1.</span> <span class="nav-text">Docker Engine指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-Image%E6%8C%87%E4%BB%A4"><span class="nav-number">1.0.2.</span> <span class="nav-text">Docker Image指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-Container%E6%8C%87%E4%BB%A4"><span class="nav-number">1.0.3.</span> <span class="nav-text">Docker Container指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-Log%E6%8C%87%E4%BB%A4"><span class="nav-number">1.0.4.</span> <span class="nav-text">Docker Log指令</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -433,7 +447,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">4 分鐘</span>
+    <span title="所需總閱讀時間">5 分鐘</span>
 </div>
 
 
