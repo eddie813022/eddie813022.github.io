@@ -22,17 +22,17 @@
 
   <meta name="description" content="Docker實際要怎麼使用基本實務用途，範例介紹">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker_04 常用指令">
-<meta property="og:url" content="https://eddie813022.github.io/2021/04/30/ocker-04/index.html">
+<meta property="og:title" content="Docker_04 常用指令">
+<meta property="og:url" content="https://eddie813022.github.io/2021/04/30/docker-04/index.html">
 <meta property="og:site_name" content="迎接禮拜一">
 <meta property="og:description" content="Docker實際要怎麼使用基本實務用途，範例介紹">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-04-30T06:12:00.000Z">
-<meta property="article:modified_time" content="2021-05-01T20:16:52.000Z">
+<meta property="article:modified_time" content="2021-05-03T02:04:44.000Z">
 <meta property="article:author" content="Eddie Chang">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://eddie813022.github.io/2021/04/30/ocker-04/">
+<link rel="canonical" href="https://eddie813022.github.io/2021/04/30/docker-04/">
 
 
 <script id="page-configurations">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>docker_04 常用指令 | 迎接禮拜一</title>
+  <title>Docker_04 常用指令 | 迎接禮拜一</title>
   
 
 
@@ -123,12 +123,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類<span class="badge">2</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類<span class="badge">1</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔<span class="badge">7</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔<span class="badge">4</span></a>
 
   </li>
   </ul>
@@ -159,7 +159,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://eddie813022.github.io/2021/04/30/ocker-04/">
+    <link itemprop="mainEntityOfPage" href="https://eddie813022.github.io/2021/04/30/docker-04/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -172,7 +172,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          docker_04 常用指令
+          Docker_04 常用指令
         </h1>
 
         <div class="post-meta">
@@ -189,7 +189,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2021-05-02 04:16:52" itemprop="dateModified" datetime="2021-05-02T04:16:52+08:00">2021-05-02</time>
+                <time title="修改時間：2021-05-03 10:04:44" itemprop="dateModified" datetime="2021-05-03T10:04:44+08:00">2021-05-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -232,7 +232,11 @@
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/reference/">官方指令文檔</a></p>
 <p><a target="_blank" rel="noopener" href="https://hub.docker.com/">DockerHub</a></p>
 <h3 id="Docker-Engine指令"><a href="#Docker-Engine指令" class="headerlink" title="Docker Engine指令"></a>Docker Engine指令</h3><p>版本訊息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker version</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker version</span><br></pre></td></tr></table></figure>
+
+<p>系統效能使用訊息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stats</span><br></pre></td></tr></table></figure>
+
 
 <p>系統詳細訊息</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure>
@@ -397,18 +401,23 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">1</span>
         <span class="site-state-item-name">分類</span></a>
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:4A127044@stust.edu.tw" title="E-Mail → mailto:4A127044@stust.edu.tw" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
 
 
 
@@ -441,18 +450,50 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">總字數：</span>
-    <span title="總字數">5k</span>
+    <span title="總字數">4k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">5 分鐘</span>
+    <span title="所需總閱讀時間">3 分鐘</span>
 </div>
 
 
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
 
 
 

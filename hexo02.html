@@ -20,17 +20,19 @@
     var CONFIG = {"hostname":"eddie813022.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="knowledge">
+  <meta name="description" content="Hexo後臺管理插件">
 <meta property="og:type" content="website">
-<meta property="og:title" content="迎接禮拜一">
-<meta property="og:url" content="https://eddie813022.github.io/categories/Hexo/index.html">
+<meta property="og:title" content="Hexo_02 後臺管理">
+<meta property="og:url" content="https://eddie813022.github.io/hexo02.html">
 <meta property="og:site_name" content="迎接禮拜一">
-<meta property="og:description" content="knowledge">
+<meta property="og:description" content="Hexo後臺管理插件">
 <meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-04-28T17:17:56.000Z">
+<meta property="article:modified_time" content="2021-04-30T02:44:54.000Z">
 <meta property="article:author" content="Eddie Chang">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://eddie813022.github.io/categories/Hexo/">
+<link rel="canonical" href="https://eddie813022.github.io/hexo02">
 
 
 <script id="page-configurations">
@@ -43,7 +45,8 @@
   };
 </script>
 
-  <title>分類: Hexo | 迎接禮拜一</title>
+  <title>Hexo_02 後臺管理 | 迎接禮拜一
+</title>
   
 
 
@@ -121,12 +124,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類<span class="badge">2</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類<span class="badge">1</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔<span class="badge">7</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔<span class="badge">4</span></a>
 
   </li>
   </ul>
@@ -149,54 +152,77 @@
       <div class="main-inner">
         <div class="content-wrap">
           
+  
+  
 
-          <div class="content category">
+          <div class="content page posts-expand">
             
 
+    
+    
+    
+    <div class="post-block" lang="zh-TW">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">Hexo_02 後臺管理
+</h1>
+
+<div class="post-meta">
   
-  
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">Hexo
-          <small>分類</small>
-        </h2>
-      </div>
+
+</div>
+
+</header>
 
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
-    </div>
+      
+      
+      <div class="post-body">
+          <h3 id="Hexo後臺管理插件"><a href="#Hexo後臺管理插件" class="headerlink" title="Hexo後臺管理插件"></a>Hexo後臺管理插件</h3><span id="more"></span>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<p><a target="_blank" rel="noopener" href="https://github.com/jaredly/hexo-admin">hexo-admin Github</a></p>
+<p>一般情況使用Hexo發布文章需要透過指令再進行更新及部屬</p>
+<p>hexo-admin提供Web方式呈現文章編輯與瀏覽，並實時呈現</p>
+<h3 id="安裝"><a href="#安裝" class="headerlink" title="安裝"></a>安裝</h3><p>移動到專案根目錄資料夾下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd &lt;專案根目錄資料夾&gt;</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-04-28T11:34:00+08:00"
-              content="2021-04-28">
-          04-28
-        </time>
+<p>輸入安裝npm安裝指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-admin</span><br></pre></td></tr></table></figure>
+
+<h3 id="執行-amp-操作"><a href="#執行-amp-操作" class="headerlink" title="執行&amp;操作"></a>執行&amp;操作</h3><p>開啟後臺webserver，預設占用port 4000</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p>開啟瀏覽器進入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;localhost:4000&#x2F;admin</span><br></pre></td></tr></table></figure>
+
+<h3 id="Hexo插入圖片方式"><a href="#Hexo插入圖片方式" class="headerlink" title="Hexo插入圖片方式"></a>Hexo插入圖片方式</h3><p><em>不推薦絕對路徑，因為圖片路徑變更時便無法正常顯示</em></p>
+<ol>
+<li>網路路徑</li>
+<li>相對路徑</li>
+</ol>
+<h4 id="網路路徑"><a href="#網路路徑" class="headerlink" title="網路路徑"></a>網路路徑</h4><pre><code>![圖片描述](Url)
+</code></pre>
+<h4 id="相對路徑"><a href="#相對路徑" class="headerlink" title="相對路徑"></a>相對路徑</h4><p>開啟專案根目錄_config.yml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post_asset_folder: true</span><br></pre></td></tr></table></figure>
+
+<p>使用指令新增文章時會自動在專案根目錄的source底下創建同名資料夾</p>
+<p>也可以直接在專案根目錄的source底下創建資料夾</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post &quot;&lt;新文章名稱&gt;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>將要放在網頁上的圖片放進資料夾中，網頁中插入圖片</p>
+<pre><code>![圖片敘述](&lt;圖片名稱.副檔名&gt;)
+</code></pre>
+
       </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/04/28/hexo01/" itemprop="url">
-            <span itemprop="name">Hexo_01 安裝&配置</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+      
+      
+      
     </div>
-  </div>
-  
-  
-  
+    
 
-  
-
+    
+    
+    
 
 
           </div>
@@ -247,6 +273,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo%E5%BE%8C%E8%87%BA%E7%AE%A1%E7%90%86%E6%8F%92%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">Hexo後臺管理插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D"><span class="nav-number">2.</span> <span class="nav-text">安裝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%B7%E8%A1%8C-amp-%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">執行&amp;操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo%E6%8F%92%E5%85%A5%E5%9C%96%E7%89%87%E6%96%B9%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">Hexo插入圖片方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B6%B2%E8%B7%AF%E8%B7%AF%E5%BE%91"><span class="nav-number">4.1.</span> <span class="nav-text">網路路徑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%B0%8D%E8%B7%AF%E5%BE%91"><span class="nav-number">4.2.</span> <span class="nav-text">相對路徑</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -260,18 +287,23 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">1</span>
         <span class="site-state-item-name">分類</span></a>
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:4A127044@stust.edu.tw" title="E-Mail → mailto:4A127044@stust.edu.tw" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
 
 
 
@@ -304,18 +336,50 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">總字數：</span>
-    <span title="總字數">5k</span>
+    <span title="總字數">4k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">5 分鐘</span>
+    <span title="所需總閱讀時間">3 分鐘</span>
 </div>
 
 
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
 
 
 
