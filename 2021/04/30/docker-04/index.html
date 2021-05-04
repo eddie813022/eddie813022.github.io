@@ -28,7 +28,7 @@
 <meta property="og:description" content="Docker實際要怎麼使用基本實務用途，範例介紹">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-04-30T06:12:00.000Z">
-<meta property="article:modified_time" content="2021-05-03T07:44:36.000Z">
+<meta property="article:modified_time" content="2021-05-04T03:45:46.000Z">
 <meta property="article:author" content="Eddie Chang">
 <meta name="twitter:card" content="summary">
 
@@ -189,7 +189,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2021-05-03 15:44:36" itemprop="dateModified" datetime="2021-05-03T15:44:36+08:00">2021-05-03</time>
+                <time title="修改時間：2021-05-04 11:45:46" itemprop="dateModified" datetime="2021-05-04T11:45:46+08:00">2021-05-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -270,7 +270,7 @@
 
 <h3 id="Docker-Container指令"><a href="#Docker-Container指令" class="headerlink" title="Docker Container指令"></a>Docker Container指令</h3><p><em>必須先下載Image才能透過Image建立Container</em></p>
 <p>建立並啟動容器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run [para] image</span><br><span class="line">para:</span><br><span class="line">--name&#x3D;&#39;&#39; # 容器名稱</span><br><span class="line">-d        # 後臺方式運行</span><br><span class="line">-it       # 交互方式，進入容器中</span><br><span class="line">-p        # 指定容器端口  EX:-p 主機端口:容器端口</span><br><span class="line">-P        # 隨機指定端口</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run [para] image</span><br><span class="line">para:</span><br><span class="line">--name&#x3D;&#39;&#39; # 容器名稱</span><br><span class="line">-d        # 後臺方式運行</span><br><span class="line">-it       # 交互方式，進入容器中</span><br><span class="line">-p        # 指定容器端口  EX:-p 主機端口:容器端口</span><br><span class="line">-P        # 隨機指定端口</span><br><span class="line">-e        # 環境變數設定</span><br></pre></td></tr></table></figure>
 
 <p>範例:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it centos &#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
@@ -289,6 +289,9 @@
 
 <p>關閉容器</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop &lt;Container ID&#x2F;Name&gt;</span><br></pre></td></tr></table></figure>
+
+<p>強制關閉容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker kill &lt;Container ID&#x2F;Name&gt;</span><br></pre></td></tr></table></figure>
 
 <p>進入正在運行的容器</p>
 <p>方式1 <code>exec</code> 在容器中開啟一個交互指令視窗</p>
