@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"eddie813022.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="容器內數據與宿主機之間的同步數據持久化，數據目錄位置 在Docker中為了避免刪除容器時，容器內的數據也一併被刪除，所以會將數據保存在容器外面，稱為Volume(卷)技術">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker_05 Volume數據卷怎麼用">
+<meta property="og:url" content="https://eddie813022.github.io/2021/05/05/docker05/index.html">
+<meta property="og:site_name" content="迎接禮拜一">
+<meta property="og:description" content="容器內數據與宿主機之間的同步數據持久化，數據目錄位置 在Docker中為了避免刪除容器時，容器內的數據也一併被刪除，所以會將數據保存在容器外面，稱為Volume(卷)技術">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://eddie813022.github.io/2021/05/05/docker05/wslfile.png">
+<meta property="og:image" content="https://eddie813022.github.io/2021/05/05/docker05/mount.jpg">
+<meta property="og:image" content="https://eddie813022.github.io/2021/05/05/docker05/mount_name.png">
+<meta property="og:image" content="https://eddie813022.github.io/2021/05/05/docker05/mount_noname.png">
+<meta property="og:image" content="https://eddie813022.github.io/2021/05/05/docker05/mount_3.png">
+<meta property="og:image" content="https://eddie813022.github.io/2021/05/05/docker05/mount_windows.png">
+<meta property="article:published_time" content="2021-05-05T09:31:44.000Z">
+<meta property="article:modified_time" content="2021-05-05T10:03:16.000Z">
+<meta property="article:author" content="Eddie Chang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://eddie813022.github.io/2021/05/05/docker05/wslfile.png">
+
+<link rel="canonical" href="https://eddie813022.github.io/2021/05/05/docker05/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>Docker_05 Volume數據卷怎麼用 | 迎接禮拜一</title>
+  
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">迎接禮拜一</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔<span class="badge">5</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://eddie813022.github.io/2021/05/05/docker05/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Eddie Chang">
+      <meta itemprop="description" content="knowledge">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="迎接禮拜一">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Docker_05 Volume數據卷怎麼用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2021-05-05 17:31:44 / 修改時間：18:03:16" itemprop="dateCreated datePublished" datetime="2021-05-05T17:31:44+08:00">2021-05-05</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>1.9k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>2 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="容器內數據與宿主機之間的同步"><a href="#容器內數據與宿主機之間的同步" class="headerlink" title="容器內數據與宿主機之間的同步"></a>容器內數據與宿主機之間的同步</h1><p><em>數據持久化，數據目錄位置</em></p>
+<p><em>在Docker中為了避免刪除容器時，容器內的數據也一併被刪除，所以會將數據保存在容器外面，稱為Volume(卷)技術</em></p>
+<span id="more"></span>
+
+<p><a target="_blank" rel="noopener" href="https://docs.docker.com/storage/volumes/">官方文檔</a></p>
+<h3 id="Windows-WSL-根目錄存放位置"><a href="#Windows-WSL-根目錄存放位置" class="headerlink" title="Windows WSL 根目錄存放位置"></a>Windows WSL 根目錄存放位置</h3><p>預設WSL安裝目錄如下，請自行將&lt;&gt;中路徑更換</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\username&gt;\AppData\Local\Packages\CanonicalGroupLimited&lt;linux_version&gt;/LocalState\rootfs</span><br></pre></td></tr></table></figure>
+
+<h3 id="Windows中瀏覽WSL檔案系統"><a href="#Windows中瀏覽WSL檔案系統" class="headerlink" title="Windows中瀏覽WSL檔案系統"></a>Windows中瀏覽WSL檔案系統</h3><p>Docker WSL2使用ext4檔案系統的方式儲存Linux檔案</p>
+<p><img src="/2021/05/05/docker05/wslfile.png"></p>
+<p><code>方式1</code></p>
+<p>透過資源管理器輸入路徑</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\\wsl$\&lt;Ubuntu-20.04&gt;\home</span><br></pre></td></tr></table></figure>
+
+<p><code>方式2</code></p>
+<p>在WSL中執行命令，先進入到欲開啟的資料夾當中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explorer.exe .</span><br></pre></td></tr></table></figure>
+
+<h3 id="WSL中瀏覽Windows檔案系統"><a href="#WSL中瀏覽Windows檔案系統" class="headerlink" title="WSL中瀏覽Windows檔案系統"></a>WSL中瀏覽Windows檔案系統</h3><p>WSL預設會將Windows資料掛載在/mnt/&lt;磁碟代號&gt;下</p>
+<p>進入Windows磁碟D的資料夾目錄</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /mnt/d</span><br></pre></td></tr></table></figure>
+
+<h3 id="Linux宿主機卷預設存放位置"><a href="#Linux宿主機卷預設存放位置" class="headerlink" title="Linux宿主機卷預設存放位置"></a>Linux宿主機卷預設存放位置</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Var/lib/docker/volumes</span><br></pre></td></tr></table></figure>
+
+<h3 id="WSL宿主機卷預設存放位置-switch-to-linux-container"><a href="#WSL宿主機卷預設存放位置-switch-to-linux-container" class="headerlink" title="WSL宿主機卷預設存放位置(switch to linux container)"></a>WSL宿主機卷預設存放位置(switch to linux container)</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes\</span><br></pre></td></tr></table></figure>
+
+<h3 id="數據卷指令"><a href="#數據卷指令" class="headerlink" title="數據卷指令"></a>數據卷指令</h3><p>新增數據卷</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker volume create &lt;數據卷名稱&gt;</span><br></pre></td></tr></table></figure>
+
+<p>查詢數據卷詳細訊息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker volume inspect &lt;數據卷名稱&gt;</span><br></pre></td></tr></table></figure>
+
+<p>檢視數據卷清單</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker volume ls</span><br></pre></td></tr></table></figure>
+
+<p>刪除數據卷</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker volume rm &lt;數據卷名稱&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="數據卷掛載類型"><a href="#數據卷掛載類型" class="headerlink" title="數據卷掛載類型"></a>數據卷掛載類型</h3><p>在設定卷掛載時，指令最好打在前面，不然可能會被script覆蓋掉</p>
+<ul>
+<li>匿名掛載</li>
+<li>具名掛載</li>
+<li>指定路徑掛載</li>
+</ul>
+<h3 id="指定路徑掛載"><a href="#指定路徑掛載" class="headerlink" title="指定路徑掛載"></a>指定路徑掛載</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker -v &lt;宿主機資料夾位置:容器資料夾位置&gt;</span><br></pre></td></tr></table></figure>
+
+<p>範例: 將容器中home資料夾下的數據同步一份到宿主機home資料夾下，這部分是<code>雙向</code>的，就算容器關閉也能在宿主機上添加資料</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d -v /home/:/home/ centos /bin/bash</span><br><span class="line">docker run -it -d -v /home/:home/:ro centos /bin/bash # 只能從宿主機操作卷，容器內部無法操作</span><br><span class="line"><span class="meta">#</span><span class="bash"> ro 只能讀</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> rw 讀寫皆可，預設是rw</span></span><br></pre></td></tr></table></figure>
+
+<p>確認資料夾是否同步掛載</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect &lt;Container ID&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/05/05/docker05/mount.jpg"></p>
+<h3 id="具名掛載"><a href="#具名掛載" class="headerlink" title="具名掛載"></a>具名掛載</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker -v &lt;卷名:容器資料夾位置&gt;</span><br></pre></td></tr></table></figure>
+
+<p>範例:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -P --name nginx01 -v namevolume:/etc/nginx nginx</span><br></pre></td></tr></table></figure>
+
+<p>確認是否掛載</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker volume inspect namevolume</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/05/05/docker05/mount_name.png"></p>
+<h3 id="匿名掛載"><a href="#匿名掛載" class="headerlink" title="匿名掛載"></a>匿名掛載</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker -v &lt;容器資料夾位置&gt;</span><br></pre></td></tr></table></figure>
+
+<p>範例:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -P --name nginx02 -v /etc/nginx nginx</span><br></pre></td></tr></table></figure>
+
+<p>確認是否掛載</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker volume ls</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/05/05/docker05/mount_noname.png"></p>
+<h3 id="實戰1-在Linux-Server中使用Docker部屬Mysql並利用卷技術同步到宿主機資料夾"><a href="#實戰1-在Linux-Server中使用Docker部屬Mysql並利用卷技術同步到宿主機資料夾" class="headerlink" title="實戰1.在Linux Server中使用Docker部屬Mysql並利用卷技術同步到宿主機資料夾"></a>實戰1.在Linux Server中使用Docker部屬Mysql並利用卷技術同步到宿主機資料夾</h3><p>1.下載Mysql鏡像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:latest</span><br></pre></td></tr></table></figure>
+
+<p>2.建立容器並執行(Mysql新版要先欲設定密碼，不然要到Log去看自動產出的密碼)</p>
+<p>分別掛載mysql設定檔及表資料</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d --name mysql01 -p 3306:3306 \</span><br><span class="line">-e MYSQL_ROOT_PASSWORD=password \</span><br><span class="line">-v /home/mysql/conf:/etc/mysql/conf.d \</span><br><span class="line">-v /home/mysql/data:/var/lib/mysql mysql</span><br></pre></td></tr></table></figure>
+
+<p>3.確認卷同步與Port映射是否正常</p>
+<p><img src="/2021/05/05/docker05/mount_3.png"></p>
+<h3 id="實戰2-在Windows10-WSL2-中使用Docker部屬Mssql並利用卷技術同步到Windows檔案系統"><a href="#實戰2-在Windows10-WSL2-中使用Docker部屬Mssql並利用卷技術同步到Windows檔案系統" class="headerlink" title="實戰2.在Windows10(WSL2)中使用Docker部屬Mssql並利用卷技術同步到Windows檔案系統"></a>實戰2.在Windows10(WSL2)中使用Docker部屬Mssql並利用卷技術同步到Windows檔案系統</h3><p>1.下載Mysql</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull microsoft/mssql-server-linux</span><br></pre></td></tr></table></figure>
+
+<p>2.建立容器並執行</p>
+<p>建立完成時，如果WSL版本是2，Docker會跳出因為使用跨系統訪問檔案建議使用WSL版本1</p>
+<p><a target="_blank" rel="noopener" href="https://docs.docker.com/docker-for-windows/wsl/#develop-with-docker-and-wsl-2">官方文檔</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d --name mssql01 -p 9797:1433 -e ACCEPT_EULA=Y -e SA_PASSWORD=password \</span><br><span class="line">-v //d/WSL_data:/var/opt/mssql/data microsoft/mssql-server-linux</span><br></pre></td></tr></table></figure>
+
+<p>3.確認卷同步</p>
+<p><img src="/2021/05/05/docker05/mount_windows.png"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/30/docker04/" rel="prev" title="Docker_04 常用指令">
+      <i class="fa fa-chevron-left"></i> Docker_04 常用指令
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E5%85%A7%E6%95%B8%E6%93%9A%E8%88%87%E5%AE%BF%E4%B8%BB%E6%A9%9F%E4%B9%8B%E9%96%93%E7%9A%84%E5%90%8C%E6%AD%A5"><span class="nav-number">1.</span> <span class="nav-text">容器內數據與宿主機之間的同步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-WSL-%E6%A0%B9%E7%9B%AE%E9%8C%84%E5%AD%98%E6%94%BE%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.0.1.</span> <span class="nav-text">Windows WSL 根目錄存放位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows%E4%B8%AD%E7%80%8F%E8%A6%BDWSL%E6%AA%94%E6%A1%88%E7%B3%BB%E7%B5%B1"><span class="nav-number">1.0.2.</span> <span class="nav-text">Windows中瀏覽WSL檔案系統</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WSL%E4%B8%AD%E7%80%8F%E8%A6%BDWindows%E6%AA%94%E6%A1%88%E7%B3%BB%E7%B5%B1"><span class="nav-number">1.0.3.</span> <span class="nav-text">WSL中瀏覽Windows檔案系統</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux%E5%AE%BF%E4%B8%BB%E6%A9%9F%E5%8D%B7%E9%A0%90%E8%A8%AD%E5%AD%98%E6%94%BE%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.0.4.</span> <span class="nav-text">Linux宿主機卷預設存放位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WSL%E5%AE%BF%E4%B8%BB%E6%A9%9F%E5%8D%B7%E9%A0%90%E8%A8%AD%E5%AD%98%E6%94%BE%E4%BD%8D%E7%BD%AE-switch-to-linux-container"><span class="nav-number">1.0.5.</span> <span class="nav-text">WSL宿主機卷預設存放位置(switch to linux container)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B8%E6%93%9A%E5%8D%B7%E6%8C%87%E4%BB%A4"><span class="nav-number">1.0.6.</span> <span class="nav-text">數據卷指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B8%E6%93%9A%E5%8D%B7%E6%8E%9B%E8%BC%89%E9%A1%9E%E5%9E%8B"><span class="nav-number">1.0.7.</span> <span class="nav-text">數據卷掛載類型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E8%B7%AF%E5%BE%91%E6%8E%9B%E8%BC%89"><span class="nav-number">1.0.8.</span> <span class="nav-text">指定路徑掛載</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E5%90%8D%E6%8E%9B%E8%BC%89"><span class="nav-number">1.0.9.</span> <span class="nav-text">具名掛載</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E6%8E%9B%E8%BC%89"><span class="nav-number">1.0.10.</span> <span class="nav-text">匿名掛載</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%A6%E6%88%B01-%E5%9C%A8Linux-Server%E4%B8%AD%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E5%B1%ACMysql%E4%B8%A6%E5%88%A9%E7%94%A8%E5%8D%B7%E6%8A%80%E8%A1%93%E5%90%8C%E6%AD%A5%E5%88%B0%E5%AE%BF%E4%B8%BB%E6%A9%9F%E8%B3%87%E6%96%99%E5%A4%BE"><span class="nav-number">1.0.11.</span> <span class="nav-text">實戰1.在Linux Server中使用Docker部屬Mysql並利用卷技術同步到宿主機資料夾</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%A6%E6%88%B02-%E5%9C%A8Windows10-WSL2-%E4%B8%AD%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E5%B1%ACMssql%E4%B8%A6%E5%88%A9%E7%94%A8%E5%8D%B7%E6%8A%80%E8%A1%93%E5%90%8C%E6%AD%A5%E5%88%B0Windows%E6%AA%94%E6%A1%88%E7%B3%BB%E7%B5%B1"><span class="nav-number">1.0.12.</span> <span class="nav-text">實戰2.在Windows10(WSL2)中使用Docker部屬Mssql並利用卷技術同步到Windows檔案系統</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Eddie Chang</p>
+  <div class="site-description" itemprop="description">knowledge</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:4A127044@stust.edu.tw" title="E-Mail → mailto:4A127044@stust.edu.tw" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eddie Chang</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">總字數：</span>
+    <span title="總字數">6k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">所需總閱讀時間 &asymp;</span>
+    <span title="所需總閱讀時間">6 分鐘</span>
+</div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
