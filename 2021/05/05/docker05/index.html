@@ -33,8 +33,8 @@
 <meta property="og:image" content="https://eddie813022.github.io/2021/05/05/docker05/mount_noname.png">
 <meta property="og:image" content="https://eddie813022.github.io/2021/05/05/docker05/mount_3.png">
 <meta property="og:image" content="https://eddie813022.github.io/2021/05/05/docker05/mount_windows.png">
-<meta property="article:published_time" content="2021-05-05T09:31:44.000Z">
-<meta property="article:modified_time" content="2021-05-05T10:03:16.000Z">
+<meta property="article:published_time" content="2021-05-05T09:31:00.000Z">
+<meta property="article:modified_time" content="2021-05-06T03:38:42.000Z">
 <meta property="article:author" content="Eddie Chang">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://eddie813022.github.io/2021/05/05/docker05/wslfile.png">
@@ -188,9 +188,24 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">發表於</span>
-              
 
-              <time title="創建時間：2021-05-05 17:31:44 / 修改時間：18:03:16" itemprop="dateCreated datePublished" datetime="2021-05-05T17:31:44+08:00">2021-05-05</time>
+              <time title="創建時間：2021-05-05 17:31:00" itemprop="dateCreated datePublished" datetime="2021-05-05T17:31:00+08:00">2021-05-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-05-06 11:38:42" itemprop="dateModified" datetime="2021-05-06T11:38:42+08:00">2021-05-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
             </span>
 
           <br>
@@ -199,7 +214,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>1.9k</span>
+              <span>2.3k</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
@@ -289,7 +304,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker volume ls</span><br></pre></td></tr></table></figure>
 
 <p><img src="/2021/05/05/docker05/mount_noname.png"></p>
-<h3 id="實戰1-在Linux-Server中使用Docker部屬Mysql並利用卷技術同步到宿主機資料夾"><a href="#實戰1-在Linux-Server中使用Docker部屬Mysql並利用卷技術同步到宿主機資料夾" class="headerlink" title="實戰1.在Linux Server中使用Docker部屬Mysql並利用卷技術同步到宿主機資料夾"></a>實戰1.在Linux Server中使用Docker部屬Mysql並利用卷技術同步到宿主機資料夾</h3><p>1.下載Mysql鏡像</p>
+<h3 id="Dockerfile掛載數據卷"><a href="#Dockerfile掛載數據卷" class="headerlink" title="Dockerfile掛載數據卷"></a>Dockerfile掛載數據卷</h3><h3 id="實戰1-在Linux-Server中使用Docker部屬Mysql並利用卷技術同步到宿主機資料夾"><a href="#實戰1-在Linux-Server中使用Docker部屬Mysql並利用卷技術同步到宿主機資料夾" class="headerlink" title="實戰1.在Linux Server中使用Docker部屬Mysql並利用卷技術同步到宿主機資料夾"></a>實戰1.在Linux Server中使用Docker部屬Mysql並利用卷技術同步到宿主機資料夾</h3><p>1.下載Mysql鏡像</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:latest</span><br></pre></td></tr></table></figure>
 
 <p>2.建立容器並執行(Mysql新版要先欲設定密碼，不然要到Log去看自動產出的密碼)</p>
@@ -298,7 +313,7 @@
 
 <p>3.確認卷同步與Port映射是否正常</p>
 <p><img src="/2021/05/05/docker05/mount_3.png"></p>
-<h3 id="實戰2-在Windows10-WSL2-中使用Docker部屬Mssql並利用卷技術同步到Windows檔案系統"><a href="#實戰2-在Windows10-WSL2-中使用Docker部屬Mssql並利用卷技術同步到Windows檔案系統" class="headerlink" title="實戰2.在Windows10(WSL2)中使用Docker部屬Mssql並利用卷技術同步到Windows檔案系統"></a>實戰2.在Windows10(WSL2)中使用Docker部屬Mssql並利用卷技術同步到Windows檔案系統</h3><p>1.下載Mysql</p>
+<h3 id="實戰2-在Windows10-WSL2-中使用Docker部屬Mssql並利用卷技術同步到Windows檔案系統-switch-to-linux-container"><a href="#實戰2-在Windows10-WSL2-中使用Docker部屬Mssql並利用卷技術同步到Windows檔案系統-switch-to-linux-container" class="headerlink" title="實戰2.在Windows10(WSL2)中使用Docker部屬Mssql並利用卷技術同步到Windows檔案系統(switch to linux container)"></a>實戰2.在Windows10(WSL2)中使用Docker部屬Mssql並利用卷技術同步到Windows檔案系統(switch to linux container)</h3><p>1.下載Mysql</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull microsoft/mssql-server-linux</span><br></pre></td></tr></table></figure>
 
 <p>2.建立容器並執行</p>
@@ -308,6 +323,18 @@
 
 <p>3.確認卷同步</p>
 <p><img src="/2021/05/05/docker05/mount_windows.png"></p>
+<h3 id="容器間數據卷共享"><a href="#容器間數據卷共享" class="headerlink" title="容器間數據卷共享"></a>容器間數據卷共享</h3><p>先建立父容器，再建立要同步的子容器</p>
+<p>可以有多個容器之間共享數據卷</p>
+<p>子容器使用以下指令雙向同步父容器指定的數據卷目錄</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker --volumes-from &lt;Container ID/name&gt;</span><br></pre></td></tr></table></figure>
+<p>範例:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d --name container01 -v /home centos /bin/bash</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d --name container02 --volumes-from centos container01 /bin/bash</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d --name container03 --volumes-from centos container01 /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>此時Container01的Volume指定的數據卷<code>/home</code>已經與Container02、03三個雙向同步，就算Container01被刪除數據依然會在02、03中存在</p>
 
     </div>
 
@@ -385,7 +412,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E5%85%A7%E6%95%B8%E6%93%9A%E8%88%87%E5%AE%BF%E4%B8%BB%E6%A9%9F%E4%B9%8B%E9%96%93%E7%9A%84%E5%90%8C%E6%AD%A5"><span class="nav-number">1.</span> <span class="nav-text">容器內數據與宿主機之間的同步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-WSL-%E6%A0%B9%E7%9B%AE%E9%8C%84%E5%AD%98%E6%94%BE%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.0.1.</span> <span class="nav-text">Windows WSL 根目錄存放位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows%E4%B8%AD%E7%80%8F%E8%A6%BDWSL%E6%AA%94%E6%A1%88%E7%B3%BB%E7%B5%B1"><span class="nav-number">1.0.2.</span> <span class="nav-text">Windows中瀏覽WSL檔案系統</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WSL%E4%B8%AD%E7%80%8F%E8%A6%BDWindows%E6%AA%94%E6%A1%88%E7%B3%BB%E7%B5%B1"><span class="nav-number">1.0.3.</span> <span class="nav-text">WSL中瀏覽Windows檔案系統</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux%E5%AE%BF%E4%B8%BB%E6%A9%9F%E5%8D%B7%E9%A0%90%E8%A8%AD%E5%AD%98%E6%94%BE%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.0.4.</span> <span class="nav-text">Linux宿主機卷預設存放位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WSL%E5%AE%BF%E4%B8%BB%E6%A9%9F%E5%8D%B7%E9%A0%90%E8%A8%AD%E5%AD%98%E6%94%BE%E4%BD%8D%E7%BD%AE-switch-to-linux-container"><span class="nav-number">1.0.5.</span> <span class="nav-text">WSL宿主機卷預設存放位置(switch to linux container)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B8%E6%93%9A%E5%8D%B7%E6%8C%87%E4%BB%A4"><span class="nav-number">1.0.6.</span> <span class="nav-text">數據卷指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B8%E6%93%9A%E5%8D%B7%E6%8E%9B%E8%BC%89%E9%A1%9E%E5%9E%8B"><span class="nav-number">1.0.7.</span> <span class="nav-text">數據卷掛載類型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E8%B7%AF%E5%BE%91%E6%8E%9B%E8%BC%89"><span class="nav-number">1.0.8.</span> <span class="nav-text">指定路徑掛載</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E5%90%8D%E6%8E%9B%E8%BC%89"><span class="nav-number">1.0.9.</span> <span class="nav-text">具名掛載</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E6%8E%9B%E8%BC%89"><span class="nav-number">1.0.10.</span> <span class="nav-text">匿名掛載</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%A6%E6%88%B01-%E5%9C%A8Linux-Server%E4%B8%AD%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E5%B1%ACMysql%E4%B8%A6%E5%88%A9%E7%94%A8%E5%8D%B7%E6%8A%80%E8%A1%93%E5%90%8C%E6%AD%A5%E5%88%B0%E5%AE%BF%E4%B8%BB%E6%A9%9F%E8%B3%87%E6%96%99%E5%A4%BE"><span class="nav-number">1.0.11.</span> <span class="nav-text">實戰1.在Linux Server中使用Docker部屬Mysql並利用卷技術同步到宿主機資料夾</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%A6%E6%88%B02-%E5%9C%A8Windows10-WSL2-%E4%B8%AD%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E5%B1%ACMssql%E4%B8%A6%E5%88%A9%E7%94%A8%E5%8D%B7%E6%8A%80%E8%A1%93%E5%90%8C%E6%AD%A5%E5%88%B0Windows%E6%AA%94%E6%A1%88%E7%B3%BB%E7%B5%B1"><span class="nav-number">1.0.12.</span> <span class="nav-text">實戰2.在Windows10(WSL2)中使用Docker部屬Mssql並利用卷技術同步到Windows檔案系統</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E5%85%A7%E6%95%B8%E6%93%9A%E8%88%87%E5%AE%BF%E4%B8%BB%E6%A9%9F%E4%B9%8B%E9%96%93%E7%9A%84%E5%90%8C%E6%AD%A5"><span class="nav-number">1.</span> <span class="nav-text">容器內數據與宿主機之間的同步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-WSL-%E6%A0%B9%E7%9B%AE%E9%8C%84%E5%AD%98%E6%94%BE%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.0.1.</span> <span class="nav-text">Windows WSL 根目錄存放位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows%E4%B8%AD%E7%80%8F%E8%A6%BDWSL%E6%AA%94%E6%A1%88%E7%B3%BB%E7%B5%B1"><span class="nav-number">1.0.2.</span> <span class="nav-text">Windows中瀏覽WSL檔案系統</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WSL%E4%B8%AD%E7%80%8F%E8%A6%BDWindows%E6%AA%94%E6%A1%88%E7%B3%BB%E7%B5%B1"><span class="nav-number">1.0.3.</span> <span class="nav-text">WSL中瀏覽Windows檔案系統</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux%E5%AE%BF%E4%B8%BB%E6%A9%9F%E5%8D%B7%E9%A0%90%E8%A8%AD%E5%AD%98%E6%94%BE%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.0.4.</span> <span class="nav-text">Linux宿主機卷預設存放位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WSL%E5%AE%BF%E4%B8%BB%E6%A9%9F%E5%8D%B7%E9%A0%90%E8%A8%AD%E5%AD%98%E6%94%BE%E4%BD%8D%E7%BD%AE-switch-to-linux-container"><span class="nav-number">1.0.5.</span> <span class="nav-text">WSL宿主機卷預設存放位置(switch to linux container)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B8%E6%93%9A%E5%8D%B7%E6%8C%87%E4%BB%A4"><span class="nav-number">1.0.6.</span> <span class="nav-text">數據卷指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B8%E6%93%9A%E5%8D%B7%E6%8E%9B%E8%BC%89%E9%A1%9E%E5%9E%8B"><span class="nav-number">1.0.7.</span> <span class="nav-text">數據卷掛載類型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E8%B7%AF%E5%BE%91%E6%8E%9B%E8%BC%89"><span class="nav-number">1.0.8.</span> <span class="nav-text">指定路徑掛載</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E5%90%8D%E6%8E%9B%E8%BC%89"><span class="nav-number">1.0.9.</span> <span class="nav-text">具名掛載</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E6%8E%9B%E8%BC%89"><span class="nav-number">1.0.10.</span> <span class="nav-text">匿名掛載</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dockerfile%E6%8E%9B%E8%BC%89%E6%95%B8%E6%93%9A%E5%8D%B7"><span class="nav-number">1.0.11.</span> <span class="nav-text">Dockerfile掛載數據卷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%A6%E6%88%B01-%E5%9C%A8Linux-Server%E4%B8%AD%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E5%B1%ACMysql%E4%B8%A6%E5%88%A9%E7%94%A8%E5%8D%B7%E6%8A%80%E8%A1%93%E5%90%8C%E6%AD%A5%E5%88%B0%E5%AE%BF%E4%B8%BB%E6%A9%9F%E8%B3%87%E6%96%99%E5%A4%BE"><span class="nav-number">1.0.12.</span> <span class="nav-text">實戰1.在Linux Server中使用Docker部屬Mysql並利用卷技術同步到宿主機資料夾</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%A6%E6%88%B02-%E5%9C%A8Windows10-WSL2-%E4%B8%AD%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E5%B1%ACMssql%E4%B8%A6%E5%88%A9%E7%94%A8%E5%8D%B7%E6%8A%80%E8%A1%93%E5%90%8C%E6%AD%A5%E5%88%B0Windows%E6%AA%94%E6%A1%88%E7%B3%BB%E7%B5%B1-switch-to-linux-container"><span class="nav-number">1.0.13.</span> <span class="nav-text">實戰2.在Windows10(WSL2)中使用Docker部屬Mssql並利用卷技術同步到Windows檔案系統(switch to linux container)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E9%96%93%E6%95%B8%E6%93%9A%E5%8D%B7%E5%85%B1%E4%BA%AB"><span class="nav-number">1.0.14.</span> <span class="nav-text">容器間數據卷共享</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -448,7 +475,7 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">總字數：</span>
-    <span title="總字數">6k</span>
+    <span title="總字數">7k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>

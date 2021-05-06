@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://eddie813022.github.io/2021/04/28/docker01/container.png">
 <meta property="og:image" content="https://eddie813022.github.io/2021/04/28/docker01/image.png">
 <meta property="article:published_time" content="2021-04-28T09:07:00.000Z">
-<meta property="article:modified_time" content="2021-05-04T09:25:46.000Z">
+<meta property="article:modified_time" content="2021-05-06T02:16:06.000Z">
 <meta property="article:author" content="Eddie Chang">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://eddie813022.github.io/2021/04/28/docker01/pasted-4.png">
@@ -194,7 +194,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2021-05-04 17:25:46" itemprop="dateModified" datetime="2021-05-04T17:25:46+08:00">2021-05-04</time>
+                <time title="修改時間：2021-05-06 10:16:06" itemprop="dateModified" datetime="2021-05-06T10:16:06+08:00">2021-05-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -212,7 +212,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>870</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
@@ -273,6 +273,12 @@
 <p><code>倉庫(Repository)</code></p>
 <p>存放鏡像的地方:Dockerhub，一樣有分成Public與Private，<br>基於git的命令，一樣可以提供使用者上傳及下載</p>
 <h3 id="Docker鏡像加載原理"><a href="#Docker鏡像加載原理" class="headerlink" title="Docker鏡像加載原理"></a>Docker鏡像加載原理</h3><p><img src="/2021/04/28/docker01/image.png"></p>
+<p>以下講解圖中含意:</p>
+<p><code>Kernel</code>、<code>Bootfs</code>部分就是共用宿主機(Host)的資源</p>
+<p>Base Image就是官方發行的各種Linux版本鏡像，不依賴其他鏡像</p>
+<p>Base Image之間的差異在於<code>rootfs</code>中，就如Centos與Ubuntu的版本差一樣</p>
+<p>在Base Image之上就是應用程式環境，需依賴原生鏡像的環境</p>
+<p>在建立容器時，會在所有所需的鏡像最後一層建立一個<code>可寫層</code>，而其它的鏡像都是<code>唯讀</code></p>
 <p>Docker<code>Image</code>利用<code>UnionFS聯合文件系統</code>的方式對系統文件進行疊加</p>
 <p>透過共用同一個bootfs的方式建立不同的rootfs，大大減少了檔案的大小</p>
 <h3 id="Docker安裝"><a href="#Docker安裝" class="headerlink" title="Docker安裝"></a>Docker安裝</h3><ul>
@@ -420,7 +426,7 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">總字數：</span>
-    <span title="總字數">6k</span>
+    <span title="總字數">7k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>

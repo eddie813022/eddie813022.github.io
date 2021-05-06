@@ -28,7 +28,7 @@
 <meta property="og:description" content="Docker實際要怎麼使用基本實務用途，範例介紹">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-04-30T06:12:00.000Z">
-<meta property="article:modified_time" content="2021-05-05T08:19:36.000Z">
+<meta property="article:modified_time" content="2021-05-06T02:38:52.000Z">
 <meta property="article:author" content="Eddie Chang">
 <meta name="twitter:card" content="summary">
 
@@ -189,7 +189,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2021-05-05 16:19:36" itemprop="dateModified" datetime="2021-05-05T16:19:36+08:00">2021-05-05</time>
+                <time title="修改時間：2021-05-06 10:38:52" itemprop="dateModified" datetime="2021-05-06T10:38:52+08:00">2021-05-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -207,7 +207,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>1.9k</span>
+              <span>2.1k</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
@@ -268,6 +268,9 @@
 <p>刪除全部鏡像</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi -f $(docker images -aq)</span><br></pre></td></tr></table></figure>
 
+<p>查詢鏡像的建構歷史紀錄</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker history &lt;Image ID/name:tag&gt;</span><br></pre></td></tr></table></figure>
+
 <h3 id="Docker-Container指令"><a href="#Docker-Container指令" class="headerlink" title="Docker Container指令"></a>Docker Container指令</h3><p><em>必須先下載Image才能透過Image建立Container</em></p>
 <p>建立並啟動容器</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run [para] image</span><br><span class="line">para:</span><br><span class="line">--name&#x3D;&#39;&#39; # 容器名稱</span><br><span class="line">-d        # 後臺方式運行</span><br><span class="line">-it       # 交互方式，進入容器中</span><br><span class="line">-p        # 指定容器端口  EX:-p 主機端口:容器端口</span><br><span class="line">-P        # 隨機指定端口</span><br><span class="line">-e        # 環境變數設定</span><br></pre></td></tr></table></figure>
@@ -309,7 +312,10 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pause &lt;Container ID&#x2F;Name&gt;</span><br></pre></td></tr></table></figure>
 
 <p>繼續容器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker unpause &lt;container-id&#x2F;name&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker unpause &lt;Container ID&#x2F;name&gt;</span><br></pre></td></tr></table></figure>
+
+<p>重命名容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rename &lt;Container ID&#x2F;Name&gt;</span><br></pre></td></tr></table></figure>
 
 <p>刪除容器(需要先停止容器)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm &lt;Container ID&#x2F;Name&gt;</span><br></pre></td></tr></table></figure>
@@ -323,8 +329,12 @@
 <p>範例:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp &lt;81b64f516ce3&gt;:&#x2F;home&#x2F;test.txt &#x2F;home</span><br></pre></td></tr></table></figure>
 
-<p>容器修改後匯出成鏡像</p>
+<p>容器經修改後匯出成鏡像(在原有鏡像上，疊上目前的容器可寫層，構成新鏡像)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit -m&#x3D;&quot;提交的訊息&quot; -a&#x3D;&quot;作者&quot; &lt;Container ID&gt; &lt;鏡像名稱:[TAG]&gt;</span><br></pre></td></tr></table></figure>
+
+<p>查詢容器改動內容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker diff &lt;Container ID&gt;</span><br></pre></td></tr></table></figure>
+
 
 <h3 id="Docker-Log指令"><a href="#Docker-Log指令" class="headerlink" title="Docker Log指令"></a>Docker Log指令</h3><p>查詢日誌</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker logs[para] &lt;Container ID&#x2F;Name&gt;</span><br><span class="line">para:</span><br><span class="line">-t           # 顯示時間軸</span><br><span class="line">-f           # 顯示輸出</span><br><span class="line">--tail &lt;int&gt; # 顯示特定筆數</span><br></pre></td></tr></table></figure>
@@ -473,7 +483,7 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">總字數：</span>
-    <span title="總字數">6k</span>
+    <span title="總字數">7k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
