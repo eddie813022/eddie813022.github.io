@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://eddie813022.github.io/2021/06/02/docker09/</loc>
+    <loc>https://eddie813022.github.io/2021/06/03/docker03/</loc>
     
     <lastmod>2021-06-02</lastmod>
     
@@ -10,6 +10,13 @@
   
   <url>
     <loc>https://eddie813022.github.io/2021/06/02/docker08/</loc>
+    
+    <lastmod>2021-06-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://eddie813022.github.io/2021/06/02/docker09/</loc>
     
     <lastmod>2021-06-02</lastmod>
     
@@ -54,13 +61,6 @@
     <loc>https://eddie813022.github.io/2021/04/28/docker01/</loc>
     
     <lastmod>2021-05-06</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://eddie813022.github.io/2021/04/30/docker03/</loc>
-    
-    <lastmod>2021-05-05</lastmod>
     
   </url>
   
